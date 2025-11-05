@@ -269,6 +269,7 @@ function initImageLoading() {
     const images = {
         'hero-img': 'images/hero-medical-team.jpg',
         'features-img': 'images/medical-professionals.jpg',
+        'real-estate-img': 'images/real-estate-building.jpg',
         'about-img': 'images/modern-hospital.jpg'
     };
     

@@ -1,772 +1,265 @@
-/* Reset and Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+@charset "UTF-8";
+
+/* =========================================
+   フォント読み込み & 変数定義
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Serif+JP:wght@300;400;600&display=swap');
 
 :root {
-    /* Medical Theme Colors */
-    --primary-blue: #2563eb;
-    --secondary-blue: #1e40af;
-    --light-blue: #dbeafe;
-    --medical-green: #059669;
-    --light-green: #d1fae5;
-    --white: #ffffff;
-    --light-gray: #f8fafc;
-    --gray: #64748b;
-    --dark-gray: #334155;
-    --text-primary: #1e293b;
-    --text-secondary: #475569;
-    --border-color: #e2e8f0;
-    --shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-    --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    
-    /* Typography */
-    --font-primary: 'Noto Sans JP', 'Inter', sans-serif;
-    --font-weight-light: 300;
-    --font-weight-normal: 400;
-    --font-weight-medium: 500;
-    --font-weight-semibold: 600;
-    --font-weight-bold: 700;
+    --bg-color: #0b0b0b;      /* 背景：深い黒 */
+    --text-main: #f5f5f5;     /* 文字：オフホワイト */
+    --text-muted: #888;       /* 文字：グレー */
+    --gold: #c5a059;          /* アクセント：シャンパンゴールド */
+    --gold-light: #e6c88a;    /* 明るいゴールド */
+    --font-en: 'Cinzel', serif;
+    --font-jp: 'Noto Serif JP', serif;
 }
 
+/* =========================================
+   基本設定 (Common)
+   ========================================= */
 body {
-    font-family: var(--font-primary);
-    font-weight: var(--font-weight-normal);
-    line-height: 1.7;
-    color: var(--text-primary);
-    background-color: var(--white);
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-jp);
+    margin: 0;
+    padding: 0;
+    line-height: 2.2;
+    letter-spacing: 0.08em;
+    overflow-x: hidden;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
+a { text-decoration: none; color: inherit; transition: 0.5s; }
+ul { list-style: none; padding: 0; margin: 0; }
+img { max-width: 100%; height: auto; }
 
-/* Header Styles */
-#header {
+/* =========================================
+   アニメーション関連 (JSで制御)
+   ========================================= */
+/* ローディング画面 */
+#loader {
     position: fixed;
-    top: 0;
-    width: 100%;
-    background: var(--white);
-    box-shadow: var(--shadow-medium);
-    z-index: 1000;
-    transition: all 0.3s ease;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #000;
+    z-index: 9999;
+    display: flex; justify-content: center; align-items: center;
+    transition: opacity 1s ease, visibility 1s ease;
 }
-
-.navbar {
-    padding: 1rem 0;
+.loader-logo {
+    font-family: var(--font-en); font-size: 2rem; color: var(--gold);
+    letter-spacing: 0.3em; animation: pulse 2s infinite;
 }
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+@keyframes pulse {
+    0% { opacity: 0.5; transform: scale(0.95); }
+    50% { opacity: 1; transform: scale(1.05); }
+    100% { opacity: 0.5; transform: scale(0.95); }
 }
+body.loaded #loader { opacity: 0; visibility: hidden; }
 
-.nav-logo {
-    display: flex;
-    align-items: center;
-    font-size: 1.25rem;
-    font-weight: var(--font-weight-bold);
-    color: var(--primary-blue);
+/* フェードアップ演出 */
+.fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
 }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
 
-.nav-logo i {
-    font-size: 1.5rem;
-    margin-right: 0.5rem;
-    color: var(--medical-green);
+/* =========================================
+   ヘッダー (Header)
+   ========================================= */
+header {
+    position: fixed; width: 100%; padding: 30px 50px;
+    display: flex; justify-content: space-between; align-items: center;
+    box-sizing: border-box; z-index: 1000;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); /* 視認性向上のため薄くグラデーション */
 }
-
-.nav-menu {
-    display: flex;
-    gap: 2rem;
+.logo {
+    font-family: var(--font-en); font-size: 1.5rem; font-weight: 600;
+    letter-spacing: 0.15em; color: #fff;
 }
-
-.nav-link {
-    text-decoration: none;
-    color: var(--text-primary);
-    font-weight: var(--font-weight-medium);
-    transition: color 0.3s ease;
-    position: relative;
+nav ul { display: flex; gap: 40px; }
+nav a {
+    font-family: var(--font-en); font-size: 0.8rem; color: #fff; position: relative;
 }
-
-.nav-link:hover {
-    color: var(--primary-blue);
+nav a::after {
+    content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 1px;
+    background: var(--gold); transition: 0.4s;
 }
+nav a:hover::after { width: 100%; }
 
-.nav-link::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: var(--primary-blue);
-    transition: width 0.3s ease;
+/* =========================================
+   フッター (Footer)
+   ========================================= */
+footer {
+    border-top: 1px solid #222; padding: 60px 10%;
+    text-align: center; font-size: 0.8rem; color: #555;
 }
+.footer-logo { font-family: var(--font-en); font-size: 1.5rem; color: #fff; margin-bottom: 20px; display: block;}
 
-.nav-link:hover::after {
-    width: 100%;
+/* =========================================
+   共通コンポーネント
+   ========================================= */
+.section { padding: 150px 10%; position: relative; }
+.section-header { text-align: center; margin-bottom: 100px; }
+.section-title {
+    font-family: var(--font-en); font-size: 2.5rem; color: var(--gold);
+    font-weight: 400; margin: 0;
 }
+.section-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-top: 15px; display: block; }
 
-.nav-toggle {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
+/* ゴールドボタン（共通） */
+.btn-luxury {
+    display: inline-block; padding: 18px 60px;
+    border: 1px solid var(--gold); color: var(--gold);
+    font-family: var(--font-en); letter-spacing: 0.2em;
+    position: relative; overflow: hidden; transition: 0.5s;
 }
-
-.bar {
-    width: 25px;
-    height: 3px;
-    background-color: var(--text-primary);
-    margin: 3px 0;
-    transition: 0.3s;
+.btn-luxury::before {
+    content: ''; position: absolute; top: 0; left: -100%;
+    width: 100%; height: 100%; background: var(--gold);
+    transition: 0.5s cubic-bezier(0.25, 1, 0.5, 1); z-index: -1;
 }
+.btn-luxury:hover { color: #000; }
+.btn-luxury:hover::before { left: 0; }
 
-/* Hero Section */
+/* =========================================
+   TOPページ専用 (index.html)
+   ========================================= */
 .hero {
-    display: flex;
-    align-items: center;
-    min-height: 100vh;
-    padding: 120px 20px 80px;
-    background: linear-gradient(135deg, var(--light-blue) 0%, var(--light-green) 100%);
-}
-
-.hero-content {
-    flex: 1;
-    max-width: 600px;
-}
-
-.hero-title {
-    font-size: 3rem;
-    font-weight: var(--font-weight-bold);
-    line-height: 1.2;
-    color: var(--text-primary);
-    margin-bottom: 1.5rem;
-}
-
-.highlight {
-    color: var(--primary-blue);
-}
-
-.hero-subtitle {
-    font-size: 1.25rem;
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 1rem;
-}
-
-.btn {
-    display: inline-block;
-    padding: 1rem 2rem;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: var(--font-weight-semibold);
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.btn-primary {
-    background-color: var(--primary-blue);
-    color: var(--white);
-    box-shadow: var(--shadow-medium);
-}
-
-.btn-primary:hover {
-    background-color: var(--secondary-blue);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-large);
-}
-
-.btn-secondary {
-    background-color: transparent;
-    color: var(--primary-blue);
-    border: 2px solid var(--primary-blue);
-}
-
-.btn-secondary:hover {
-    background-color: var(--primary-blue);
-    color: var(--white);
-}
-
-.hero-image {
-    flex: 1;
-    text-align: center;
-    margin-left: 2rem;
-}
-
-.hero-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 16px;
-    box-shadow: var(--shadow-large);
-}
-
-/* Section Styles */
-section {
-    padding: 80px 0;
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 4rem;
-}
-
-.section-header h2 {
-    font-size: 2.5rem;
-    font-weight: var(--font-weight-bold);
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-}
-
-.section-header p {
-    font-size: 1.125rem;
-    color: var(--text-secondary);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* Services Section */
-.services {
-    background-color: var(--light-gray);
-}
-
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-}
-
-.service-card {
-    background: var(--white);
-    padding: 2.5rem 2rem;
-    border-radius: 16px;
-    box-shadow: var(--shadow-medium);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-large);
-}
-
-.service-icon {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, var(--primary-blue), var(--medical-green));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-}
-
-.service-icon i {
-    font-size: 2rem;
-    color: var(--white);
-}
-
-.service-card h3 {
-    font-size: 1.5rem;
-    font-weight: var(--font-weight-bold);
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-}
-
-.service-card p {
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
-}
-
-.service-features {
-    list-style: none;
-    text-align: left;
-}
-
-.service-features li {
-    padding: 0.5rem 0;
-    color: var(--text-secondary);
-    position: relative;
-    padding-left: 1.5rem;
-}
-
-.service-features li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--medical-green);
-    font-weight: var(--font-weight-bold);
-}
-
-/* Features Section */
-.features {
-    background: var(--white);
-}
-
-.features-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.features-text h2 {
-    font-size: 2.25rem;
-    font-weight: var(--font-weight-bold);
-    color: var(--text-primary);
-    margin-bottom: 2rem;
-}
-
-.feature-item {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 2rem;
-}
-
-.feature-item i {
-    font-size: 2rem;
-    color: var(--primary-blue);
-    margin-right: 1rem;
-    margin-top: 0.5rem;
-}
-
-.feature-item h3 {
-    font-size: 1.25rem;
-    font-weight: var(--font-weight-semibold);
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-}
-
-.feature-item p {
-    color: var(--text-secondary);
-}
-
-.features-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 16px;
-    box-shadow: var(--shadow-large);
-}
-
-/* Real Estate Section */
-.real-estate {
-    background: var(--white);
-    padding: 80px 0;
-}
-
-.real-estate-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.real-estate-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 16px;
-    box-shadow: var(--shadow-large);
-}
-
-.real-estate-text h3 {
-    font-size: 1.75rem;
-    font-weight: var(--font-weight-bold);
-    color: var(--text-primary);
-    margin-bottom: 1.5rem;
-}
-
-.real-estate-text > p {
-    font-size: 1.125rem;
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
-    line-height: 1.8;
-}
-
-.real-estate-features {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.real-estate-feature-item {
-    display: flex;
-    align-items: flex-start;
-    padding: 1.5rem;
-    background: var(--light-gray);
-    border-radius: 12px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.real-estate-feature-item:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-medium);
-}
-
-.real-estate-feature-item i {
-    font-size: 1.75rem;
-    color: var(--primary-blue);
-    margin-right: 1rem;
-    margin-top: 0.25rem;
-}
-
-.real-estate-feature-item h4 {
-    font-size: 1.125rem;
-    font-weight: var(--font-weight-semibold);
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-}
-
-.real-estate-feature-item p {
-    font-size: 0.9375rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-}
-
-/* About Section */
-.about {
-    background-color: var(--light-gray);
-}
-
-.about-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.about-text h3 {
-    font-size: 1.5rem;
-    font-weight: var(--font-weight-bold);
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-}
-
-.about-text p {
-    font-size: 1.125rem;
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
-}
-
-.stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-}
-
-.stat-item {
-    text-align: center;
-    padding: 1.5rem;
-    background: var(--white);
-    border-radius: 12px;
-    box-shadow: var(--shadow-light);
-}
-
-.stat-number {
-    font-size: 2.5rem;
-    font-weight: var(--font-weight-bold);
-    color: var(--primary-blue);
-    margin-bottom: 0.5rem;
-}
-
-.stat-label {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    font-weight: var(--font-weight-medium);
-}
-
-.about-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 16px;
-    box-shadow: var(--shadow-large);
-}
-
-/* Contact Section */
-.contact {
-    background: var(--white);
-}
-
-.contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-}
-
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.contact-item {
-    display: flex;
-    align-items: flex-start;
-}
-
-.contact-item i {
-    font-size: 1.5rem;
-    color: var(--primary-blue);
-    margin-right: 1rem;
-    margin-top: 0.5rem;
-}
-
-.contact-item h3 {
-    font-size: 1.125rem;
-    font-weight: var(--font-weight-semibold);
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-}
-
-.contact-item p {
-    color: var(--text-secondary);
-    margin-bottom: 0.25rem;
-}
-
-.contact-item small {
-    color: var(--gray);
-}
-
-.contact-form {
-    background: var(--light-gray);
-    padding: 2.5rem;
-    border-radius: 16px;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: var(--font-weight-medium);
-    color: var(--text-primary);
-}
-
-.required {
-    color: #ef4444;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 1rem;
-    font-family: var(--font-primary);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 120px;
-}
-
-/* Footer */
-.footer {
-    background-color: var(--text-primary);
-    color: var(--white);
-    padding: 3rem 0 1rem;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.footer-section h3 {
-    font-size: 1.125rem;
-    font-weight: var(--font-weight-semibold);
-    margin-bottom: 1rem;
-}
-
-.footer-logo {
-    display: flex;
-    align-items: center;
-    font-size: 1.125rem;
-    font-weight: var(--font-weight-bold);
-    margin-bottom: 1rem;
-}
-
-.footer-logo i {
-    font-size: 1.25rem;
-    margin-right: 0.5rem;
-    color: var(--medical-green);
-}
-
-.footer-section p {
-    color: #cbd5e1;
-    margin-bottom: 1rem;
-}
-
-.footer-section ul {
-    list-style: none;
-}
-
-.footer-section ul li {
-    margin-bottom: 0.5rem;
-}
-
-.footer-section ul li a {
-    color: #cbd5e1;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-section ul li a:hover {
-    color: var(--white);
-}
-
-.footer-section ul li i {
-    margin-right: 0.5rem;
-    color: var(--primary-blue);
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid #475569;
-    color: #cbd5e1;
-}
-
-/* Responsive Design */
+    height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    /* ↓ 画像パスは適宜変更してください */
+    background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%), url('../images/hero.jpg');
+    background-size: cover; background-position: center; position: relative;
+}
+.hero-sub {
+    font-family: var(--font-en); color: var(--gold); font-size: 1rem;
+    letter-spacing: 0.4em; margin-bottom: 20px; text-transform: uppercase;
+}
+.hero-title { font-size: 3.5rem; font-weight: 300; margin: 0; line-height: 1.4; }
+
+/* Origin Section */
+.origin-container {
+    display: flex; align-items: center; justify-content: space-between;
+    max-width: 1200px; margin: 0 auto; gap: 80px;
+}
+.origin-text { flex: 1; }
+.origin-visual {
+    flex: 1; position: relative; height: 400px;
+    display: flex; justify-content: center; align-items: center;
+}
+.circle-arc {
+    width: 300px; height: 300px; border: 1px solid var(--gold);
+    border-radius: 50%; position: absolute; opacity: 0.5;
+}
+.circle-arc:nth-child(1) { transform: scale(1); border-color: rgba(197, 160, 89, 0.2); }
+.circle-arc:nth-child(2) { transform: scale(1.2); border-color: rgba(197, 160, 89, 0.1); }
+.origin-visual h3 {
+    font-family: var(--font-en); font-size: 3rem; z-index: 10;
+    text-shadow: 0 0 20px rgba(0,0,0,1);
+}
+.meaning-box { margin-bottom: 40px; border-left: 2px solid var(--gold); padding-left: 30px; }
+.meaning-title { font-family: var(--font-en); font-size: 1.5rem; color: var(--gold-light); display: block; margin-bottom: 10px; }
+
+/* Business Grid */
+.business-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 60px; }
+.business-card {
+    background: linear-gradient(145deg, #151515, #111); padding: 50px;
+    border: 1px solid #222; transition: 0.5s;
+}
+.business-card:hover { border-color: var(--gold); transform: translateY(-10px); }
+.card-icon {
+    font-family: var(--font-en); font-size: 1.2rem; color: var(--gold);
+    margin-bottom: 30px; display: inline-block;
+    border-bottom: 1px solid var(--gold); padding-bottom: 5px;
+}
+
+/* Recruit Section (Top) */
+.recruit-bg {
+    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.7)), url('../images/office.jpg');
+    background-size: cover; background-attachment: fixed;
+    text-align: center; padding: 180px 10%;
+}
+
+/* =========================================
+   採用ページ (recruit.html)
+   ========================================= */
+.page-header {
+    padding: 150px 10% 80px; text-align: center;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('../images/office.jpg');
+    background-size: cover; background-position: center;
+}
+.page-title { font-family: var(--font-en); font-size: 3rem; color: var(--gold); margin: 0; }
+.job-card {
+    background: #111; border: 1px solid #333; padding: 40px;
+    margin-bottom: 40px; transition: 0.3s;
+}
+.job-card:hover { border-color: var(--gold); }
+.job-title {
+    font-size: 1.5rem; margin-bottom: 20px;
+    border-bottom: 1px solid var(--gold); padding-bottom: 10px; display: inline-block;
+}
+.requirements-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+.requirements-table th, .requirements-table td {
+    text-align: left; padding: 15px 0; border-bottom: 1px solid #222;
+}
+.requirements-table th { width: 30%; color: #888; font-weight: normal; }
+
+/* =========================================
+   お問い合わせ (contact.html)
+   ========================================= */
+.contact-container { max-width: 600px; margin: 80px auto; padding: 0 5%; }
+.form-group { margin-bottom: 30px; }
+label { display: block; color: #888; margin-bottom: 10px; font-size: 0.9rem; }
+input, select, textarea {
+    width: 100%; background: #111; border: 1px solid #333; color: #fff;
+    padding: 15px; font-family: inherit; box-sizing: border-box; transition: 0.3s;
+}
+input:focus, select:focus, textarea:focus {
+    border-color: var(--gold); outline: none; background: #1a1a1a;
+}
+textarea { height: 150px; resize: vertical; }
+.submit-btn {
+    width: 100%; background: var(--gold); border: none; padding: 18px;
+    color: #000; font-weight: bold; font-family: var(--font-en);
+    letter-spacing: 0.2em; cursor: pointer; transition: 0.3s;
+}
+.submit-btn:hover { background: #fff; }
+
+/* =========================================
+   ABOUT (about.html)
+   ========================================= */
+.ceo-section {
+    display: flex; max-width: 1200px; margin: 100px auto;
+    padding: 0 5%; align-items: center; gap: 80px;
+}
+.ceo-img {
+    flex: 1; height: 600px; background: #222;
+    background-image: url('../images/ceo.jpg'); /* 社長画像 */
+    background-size: cover; background-position: center; position: relative;
+}
+.ceo-img::after {
+    content: ''; position: absolute; top: 20px; left: 20px;
+    width: 100%; height: 100%; border: 1px solid var(--gold); z-index: -1;
+}
+.ceo-text { flex: 1.2; }
+.ceo-title {
+    font-family: var(--font-en); color: var(--gold); font-size: 1rem;
+    letter-spacing: 0.2em; display: block; margin-bottom: 20px;
+}
+.info-row { display: flex; border-bottom: 1px solid #333; padding: 20px 0; }
+.info-label { width: 30%; color: #888; }
+
+/* =========================================
+   スマホ対応 (Common Media Queries)
+   ========================================= */
 @media (max-width: 768px) {
-    .nav-menu {
-        position: fixed;
-        left: -100%;
-        top: 70px;
-        flex-direction: column;
-        background-color: var(--white);
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        box-shadow: var(--shadow-medium);
-        padding: 2rem 0;
-    }
-
-    .nav-menu.active {
-        left: 0;
-    }
-
-    .nav-toggle {
-        display: flex;
-    }
-
-    .hero {
-        flex-direction: column;
-        text-align: center;
-        padding: 100px 20px 60px;
-    }
-
-    .hero-image {
-        margin-left: 0;
-        margin-top: 2rem;
-    }
-
-    .hero-title {
-        font-size: 2.25rem;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .features-content {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
-
-    .real-estate-content {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
-
-    .about-content {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
-
-    .contact-content {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
-
-    .stats {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .section-header h2 {
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 0 15px;
-    }
-
-    .hero-title {
-        font-size: 2rem;
-    }
-
-    .section-header h2 {
-        font-size: 1.75rem;
-    }
-
-    .btn {
-        padding: 0.875rem 1.5rem;
-    }
-
-    .contact-form {
-        padding: 2rem;
-    }
-}
-
-/* Smooth scrolling */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Animation classes */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
+    header { padding: 20px; justify-content: center; }
+    nav { display: none; /* 必要ならハンバーガーメニューを追加 */ }
+    .hero-title { font-size: 2rem; }
+    .origin-container { flex-direction: column-reverse; gap: 40px; }
+    .circle-arc { width: 200px; height: 200px; }
+    .business-grid { grid-template-columns: 1fr; }
+    .section { padding: 100px 5%; }
+    .ceo-section { flex-direction: column; }
+    .ceo-img { width: 100%; height: 400px; }
 }

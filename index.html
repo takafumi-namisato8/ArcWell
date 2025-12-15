@@ -3,348 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>株式会社ArcWell | 医療施設コンサルティング・不動産賃貸業</title>
-    <meta name="description" content="医療施設専門の経営コンサルティング、経費削減、医療機器・消耗品販売、予約システム導入、そして不動産賃貸業まで総合的にサポートいたします。">
+    <title>株式会社ArcWell | Medical & Estate Solutions</title>
     
-    <!-- CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <!-- Header -->
-    <header id="header">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-logo">
-                    <span>株式会社ArcWell</span>
-                </div>
-                <div class="nav-menu" id="nav-menu">
-                    <a href="#home" class="nav-link">ホーム</a>
-                    <a href="#services" class="nav-link">サービス</a>
-                    <a href="#about" class="nav-link">会社概要</a>
-                    <a href="#contact" class="nav-link">お問い合わせ</a>
-                </div>
-                <div class="nav-toggle" id="nav-toggle">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-            </div>
+<body> <div id="loader">
+        <div class="loader-logo">ArcWell</div>
+    </div>
+
+    <header>
+        <div class="logo">ArcWell</div>
+        <nav>
+            <ul>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="recruit.html">CAREERS</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">医療と不動産の<br><span class="highlight">トータルソリューション</span></h1>
-            <p class="hero-subtitle">医療施設の経営コンサルティングから不動産賃貸管理まで、幅広いビジネスニーズをワンストップで提供いたします。</p>
-            <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary">お問い合わせ</a>
-                <a href="#services" class="btn btn-secondary">サービス詳細</a>
-            </div>
-        </div>
-        <div class="hero-image">
-            <img id="hero-img" src="" alt="医療コンサルティング" loading="lazy">
+    <section class="hero">
+        <div class="fade-up">
+            <p class="hero-sub">Medical Management & Luxury Real Estate</p>
+            <h2 style="font-size: 1.2rem; font-weight: 400; margin-bottom: 10px; font-family: 'Noto Serif JP', serif;">
+                医療コスト削減・不動産ソリューション
+            </h2>
+            <h1 class="hero-title">架け橋となる。<br>未来への軌跡を描く。</h1>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-header">
-                <h2>サービス内容</h2>
-                <p>医療施設の経営課題から不動産賃貸管理まで、幅広いソリューションをご提供いたします</p>
+    <section id="origin" class="section">
+        <div class="origin-container">
+            <div class="origin-text fade-up">
+                <div class="section-header" style="text-align: left; margin-bottom: 50px;">
+                    <h2 class="section-title">The Origin</h2>
+                    <span class="section-subtitle">社名に込めた想い</span>
+                </div>
+                <div class="meaning-box">
+                    <span class="meaning-title">Arc [ 架け橋・軌跡 ]</span>
+                    <p>医療と不動産、そして現在と未来をつなぐ強固な架け橋となる。</p>
+                </div>
+                <div class="meaning-box">
+                    <span class="meaning-title">Well [ 源泉・良質 ]</span>
+                    <p>Wellness（医療）と Well-being（暮らし）。根底にある価値を追求する。</p>
+                </div>
             </div>
-            
-            <div class="services-grid">
-                <!-- Service 1: 経営コンサルティング -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>経営コンサルティング</h3>
-                    <p>医療施設に特化した経営戦略の立案から実行まで、豊富な実績に基づいた最適なソリューションを提供いたします。</p>
-                    <ul class="service-features">
-                        <li>収益性分析・改善提案</li>
-                        <li>業務効率化コンサルティング</li>
-                        <li>人材配置最適化</li>
-                        <li>経営計画策定支援</li>
-                    </ul>
-                </div>
-
-                <!-- Service 2: 経費削減コンサルティング -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-piggy-bank"></i>
-                    </div>
-                    <h3>経費削減コンサルティング</h3>
-                    <p>医療施設の運営コストを詳細に分析し、品質を落とすことなく効果的な経費削減を実現します。</p>
-                    <ul class="service-features">
-                        <li>コスト構造分析</li>
-                        <li>調達コスト最適化</li>
-                        <li>光熱費・通信費削減</li>
-                        <li>業務プロセス改善</li>
-                    </ul>
-                </div>
-
-                <!-- Service 3: 医療消耗品・機器販売 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-stethoscope"></i>
-                    </div>
-                    <h3>医療消耗品・機器販売</h3>
-                    <p>現在の卸売業者より安価で高品質な医療消耗品・機器を直接供給。コスト削減と品質向上を同時に実現します。</p>
-                    <ul class="service-features">
-                        <li>ディスポーザブル商品の最適調達</li>
-                        <li>高性能医療機器の導入</li>
-                        <li>メンテナンス・保守サポート</li>
-                        <li>在庫管理システム提供</li>
-                    </ul>
-                </div>
-
-                <!-- Service 4: 予約システム -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
-                    <h3>予約システム導入・運用</h3>
-                    <p>患者様の利便性向上と業務効率化を実現する予約システムの販売から導入、アフターフォローまで一貫してサポートします。</p>
-                    <ul class="service-features">
-                        <li>オンライン予約システム導入</li>
-                        <li>既存システムとの連携</li>
-                        <li>スタッフ研修・運用サポート</li>
-                        <li>継続的な改善提案</li>
-                    </ul>
-                </div>
-
-                <!-- Service 5: 不動産賃貸業 -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <h3>不動産賃貸業</h3>
-                    <p>マンション・アパート・オフィスビルなど、多様な不動産物件の賃貸管理・運営を行っております。安定した賃貸経営をサポートします。</p>
-                    <ul class="service-features">
-                        <li>賃貸物件の募集・契約管理</li>
-                        <li>物件メンテナンス・修繕対応</li>
-                        <li>入居者サポート・トラブル対応</li>
-                        <li>収益最大化のコンサルティング</li>
-                    </ul>
-                </div>
+            <div class="origin-visual fade-up">
+                <div class="circle-arc"></div>
+                <div class="circle-arc"></div>
+                <h3>ArcWell</h3>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <div class="features-content">
-                <div class="features-text">
-                    <h2>なぜ私たちが選ばれるのか</h2>
-                    <div class="feature-item">
-                        <i class="fas fa-hospital-alt"></i>
-                        <div>
-                            <h3>医療業界専門知識</h3>
-                            <p>医療施設特有の課題を深く理解した専門チームが、最適なソリューションを提供いたします。</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-handshake"></i>
-                        <div>
-                            <h3>ワンストップサービス</h3>
-                            <p>コンサルティングから機器導入まで、すべてのサービスを一社で完結できます。</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-award"></i>
-                        <div>
-                            <h3>実績に基づく提案</h3>
-                            <p>数多くの医療施設での成功事例に基づいた、確実性の高いソリューションを提案いたします。</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="features-image">
-                    <img id="features-img" src="" alt="医療チーム" loading="lazy">
-                </div>
+    <section id="business" class="section">
+        <div class="section-header fade-up">
+            <h2 class="section-title">Our Business</h2>
+        </div>
+        <div class="business-grid">
+            <div class="business-card fade-up">
+                <span class="card-icon">01. Medical Consulting</span>
+                <h3>医療経営コンサルティング</h3>
+                <p>コスト改革から経営戦略まで。現場視点のソリューション。</p>
+            </div>
+            <div class="business-card fade-up">
+                <span class="card-icon">02. Real Estate</span>
+                <h3>不動産ソリューション</h3>
+                <p>資産価値最大化を目指す、戦略的プロパティマネジメント。</p>
             </div>
         </div>
     </section>
 
-    <!-- Real Estate Section -->
-    <section class="real-estate">
-        <div class="container">
-            <div class="section-header">
-                <h2>不動産賃貸事業</h2>
-                <p>優良物件の賃貸管理で安定収益をサポートいたします</p>
+    <section id="recruit" class="recruit-bg">
+        <div class="fade-up">
+            <div class="recruit-msg">
+                <span>JOIN OUR TEAM</span>
+                <h2>常識を超え、<br>新たなスタンダードを創る。</h2>
             </div>
-            <div class="real-estate-content">
-                <div class="real-estate-image">
-                    <img id="real-estate-img" src="" alt="不動産物件" loading="lazy">
-                </div>
-                <div class="real-estate-text">
-                    <h3>快適な住環境とビジネス空間を提供</h3>
-                    <p>当社では、マンション・アパート・オフィスビルなど多様な不動産物件の賃貸管理を行っております。入居者様には快適な住環境を、オーナー様には安定した収益をお届けすることを使命としています。</p>
-                    
-                    <div class="real-estate-features">
-                        <div class="real-estate-feature-item">
-                            <i class="fas fa-home"></i>
-                            <div>
-                                <h4>多様な物件ラインナップ</h4>
-                                <p>ファミリー向けマンションから単身者向けアパート、ビジネス用オフィスまで幅広い物件を取り扱っています。</p>
-                            </div>
-                        </div>
-                        <div class="real-estate-feature-item">
-                            <i class="fas fa-tools"></i>
-                            <div>
-                                <h4>充実の管理サービス</h4>
-                                <p>24時間対応の緊急サポート、定期メンテナンス、トラブル対応まで、包括的な管理サービスを提供します。</p>
-                            </div>
-                        </div>
-                        <div class="real-estate-feature-item">
-                            <i class="fas fa-chart-bar"></i>
-                            <div>
-                                <h4>収益最大化のサポート</h4>
-                                <p>適切な賃料設定、入居者募集戦略、空室対策まで、オーナー様の資産価値向上をサポートします。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <a href="recruit.html" class="btn-luxury">VIEW POSITIONS</a>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-header">
-                <h2>会社概要</h2>
-                <p>医療業界と不動産業界に特化した専門的なコンサルティング・管理サービスを提供しています</p>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>私たちの使命</h3>
-                    <p>医療施設の経営効率化と不動産資産の最適運用を通じて、クライアントの成長と発展に貢献することが私たちの使命です。医療と不動産、両分野での豊富な経験と専門知識を活かし、あらゆる課題解決をサポートいたします。</p>
-                    
-                    <div class="stats">
-                        <div class="stat-item">
-                            <div class="stat-number">150+</div>
-                            <div class="stat-label">導入実績</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">95%</div>
-                            <div class="stat-label">顧客満足度</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">24/7</div>
-                            <div class="stat-label">サポート体制</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <img id="about-img" src="" alt="医療施設" loading="lazy">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2>お問い合わせ</h2>
-                <p>医療施設の課題や不動産賃貸に関することなど、お気軽にご相談ください</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h3>お電話でのお問い合わせ</h3>
-                            <p>03-1234-5678</p>
-                            <small>平日 9:00-18:00</small>
-                        </div>
-                    </div>
-                        <div>
-                            <h3>メールでのお問い合わせ</h3>
-                            <p>info.arcwell@gmail.com</p>
-                            <small>24時間受付中</small>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h3>所在地</h3>
-                            <p>〒160-0022<br>東京都新宿区新宿２丁目１３番１０号<br>武蔵野ビル５Ｆ</p>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form" id="contact-form">
-                    <div class="form-group">
-                        <label for="name">お名前 <span class="required">*</span></label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="organization">会社名・組織名</label>
-                        <input type="text" id="organization" name="organization">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">メールアドレス <span class="required">*</span></label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">電話番号</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="service">ご相談内容 <span class="required">*</span></label>
-                        <select id="service" name="service" required>
-                            <option value="">選択してください</option>
-                            <option value="management">経営コンサルティング</option>
-                            <option value="cost-reduction">経費削減コンサルティング</option>
-                            <option value="equipment">医療消耗品・機器販売</option>
-                            <option value="reservation">予約システム導入</option>
-                            <option value="real-estate">不動産賃貸業</option>
-                            <option value="other">その他</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">詳細・ご質問</label>
-                        <textarea id="message" name="message" rows="5" placeholder="ご相談内容を詳しくお書きください"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">送信する</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <span>株式会社ArcWell</span>
-                    </div>
-                    <p>医療施設と不動産の総合的なソリューションを提供する専門企業です。</p>
-                </div>
-                <div class="footer-section">
-                    <h3>サービス</h3>
-                    <ul>
-                        <li><a href="#services">経営コンサルティング</a></li>
-                        <li><a href="#services">経費削減コンサルティング</a></li>
-                        <li><a href="#services">医療機器・消耗品販売</a></li>
-                        <li><a href="#services">予約システム導入</a></li>
-                        <li><a href="#services">不動産賃貸業</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 株式会社ArcWell. All rights reserved.</p>
-            </div>
-        </div>
+    <footer>
+        <span class="footer-logo">ArcWell Inc.</span>
+        <p>&copy; 2024 ArcWell Inc. All Rights Reserved.</p>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
